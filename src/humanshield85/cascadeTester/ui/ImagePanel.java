@@ -81,12 +81,20 @@ public class ImagePanel extends JPanel implements Subscriber {
 				}
 
 			}
+		} else if (stateChangedEvent.getType() == StateChangedEvent.EFFECT_CHNAGED ) {
+			try {
+				image = ImageIO.read(Main.state.getCurrentImage());
+				newDetection();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	private void newDetection() {
 		if (image == null)
 			return;
+		
 		MatOfRect rects = CascadeObjectDetector.detectObjects(Main.state.getCurrentImage(), Main.state.getCascadeFile(),
 				Main.state.getEffect());
 		Graphics2D g2d = (Graphics2D) image.getGraphics();

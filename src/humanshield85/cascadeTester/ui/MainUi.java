@@ -92,6 +92,8 @@ public class MainUi implements Subscriber, ActionListener {
 		btnSlectCascade.addActionListener(this);
 		menuItemOpenCascadeFile.addActionListener(this);
 		this.menuItemExit.addActionListener(this);
+		this.radioGrayScale.addActionListener(this);
+		this.radioOriginal.addActionListener(this);
 	}
 
 	/**

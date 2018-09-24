@@ -6,6 +6,7 @@ import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -66,6 +67,9 @@ public class MainUi implements Subscriber, ActionListener {
 	MenuItem menuItemSettings = new MenuItem("Settings");
 	MenuItem menuItemAboutTheSoftware = new MenuItem("About this software");
 
+	File lastCascadeLocation = null;
+	File lastImagesFOlder = null;
+	
 	/**
 	 * main constructor
 	 */
@@ -201,11 +205,13 @@ public class MainUi implements Subscriber, ActionListener {
 		// TODO Auto-generated method stub
 		Object source = arg0.getSource();
 		if (source.equals(btnBrowse) || source.equals(menuItemOpenFolder)) {
-			JFileChooser fs = new JFileChooser();
+			JFileChooser fs = new JFileChooser(this.lastImagesFOlder);
 			fs.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			int result = fs.showOpenDialog(mainFrame);
-			if (result != JFileChooser.CANCEL_OPTION)
+			if (result != JFileChooser.CANCEL_OPTION) {
 				Main.state.setImagesPath(fs.getSelectedFile());
+				this.lastImagesFOlder = fs.getSelectedFile().getParentFile();
+			}
 		} else if (source.equals(btnNextImage)) {
 
 			Main.state.nextImage();
@@ -223,12 +229,15 @@ public class MainUi implements Subscriber, ActionListener {
 			Main.state.setEffect(1);
 
 		} else if (source.equals(btnSlectCascade) || source.equals(menuItemOpenCascadeFile)) {
-			JFileChooser fs = new JFileChooser();
+			JFileChooser fs = new JFileChooser(lastCascadeLocation);
 			fs.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			fs.setFileFilter(new FileNameExtensionFilter("xml", "xml"));
+			//fs.setFo.setSelectedFile(new File("c:/"));
 			int result = fs.showOpenDialog(mainFrame);
-			if (result != JFileChooser.CANCEL_OPTION)
+			if (result != JFileChooser.CANCEL_OPTION) {
 				Main.state.setCascadeFile(fs.getSelectedFile());
+				lastCascadeLocation = fs.getSelectedFile().getParentFile();
+			}
 		} else if (source.equals(menuItemExit)) {
 			System.exit(0);
 		} else if (source .equals(menuItemSettings)) {

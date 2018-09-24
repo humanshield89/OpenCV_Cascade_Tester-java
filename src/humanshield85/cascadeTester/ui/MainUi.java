@@ -49,7 +49,6 @@ public class MainUi implements Subscriber, ActionListener {
 	protected JPanel cascadePanel = new JPanel();
 	protected JButton btnSlectCascade = new JButton("Select cascade  file");
 	protected JLabel labCascadeFile = new JLabel("No Files Selected");
-	protected JButton btnStartDetection = new JButton("Start Detection");
 
 	// labels
 	protected final JLabel labBrowse = new JLabel("Images path: ");
@@ -106,7 +105,7 @@ public class MainUi implements Subscriber, ActionListener {
 		mainFrame.setResizable(false);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		effectPane.setBounds(10, 50, 200, 90);
+		effectPane.setBounds(10, 50, 285, 90);
 		effectPane.setBorder(BorderFactory.createTitledBorder("Effects before detection"));
 		groupEffect.add(radioOriginal);
 		groupEffect.add(radioGrayScale);
@@ -114,13 +113,10 @@ public class MainUi implements Subscriber, ActionListener {
 		radioOriginal.setSelected(true);
 		effectPane.add(radioGrayScale);
 
-		cascadePanel.setBounds(220, 50, 200, 90);
+		cascadePanel.setBounds(305, 50, 285, 90);
 		cascadePanel.setBorder(BorderFactory.createTitledBorder("Cascade files"));
 		cascadePanel.add(labCascadeFile);
 		cascadePanel.add(btnSlectCascade);
-
-		btnStartDetection.setBounds(430, 64, 155, 72);
-		btnStartDetection.setEnabled(false);
 
 		imagePane.setBounds(10, 140, 580, 370);
 		imagePane.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -159,7 +155,6 @@ public class MainUi implements Subscriber, ActionListener {
 		mainPane.add(imagePane);
 		mainPane.add(footerPane);
 		mainPane.add(cascadePanel);
-		mainPane.add(btnStartDetection);
 	}
 
 	@Override
@@ -181,12 +176,10 @@ public class MainUi implements Subscriber, ActionListener {
 			break;
 		case StateChangedEvent.CASCADE_FILE_CHANGED:
 			this.labCascadeFile.setText(Main.state.getCascadeFile().getName());
-			this.btnStartDetection.setEnabled(Main.state.HasValidImages() && Main.state.isCascadeSet());
 			break;
 		case StateChangedEvent.IMAGE_LIST_CHNAGED:
 			this.txtFieldBrowse.setText(Main.state.getImagesPath().getAbsolutePath());
 			this.txtFieldMaxImageNumber.setText("" + Main.state.getMaxImageCount());
-			this.btnStartDetection.setEnabled(Main.state.HasValidImages() && Main.state.isCascadeSet());
 			break;
 		case StateChangedEvent.EFFECT_CHNAGED:
 			if (Main.state.getEffect() == 0) {

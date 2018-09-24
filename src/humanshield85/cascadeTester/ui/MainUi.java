@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -94,6 +95,8 @@ public class MainUi implements Subscriber, ActionListener {
 		this.menuItemExit.addActionListener(this);
 		this.radioGrayScale.addActionListener(this);
 		this.radioOriginal.addActionListener(this);
+		this.menuItemAboutTheSoftware.addActionListener(this);
+		this.menuItemSettings.addActionListener(this);
 	}
 
 	/**
@@ -228,6 +231,10 @@ public class MainUi implements Subscriber, ActionListener {
 				Main.state.setCascadeFile(fs.getSelectedFile());
 		} else if (source.equals(menuItemExit)) {
 			System.exit(0);
+		} else if (source .equals(menuItemSettings)) {
+			JOptionPane.showMessageDialog(mainFrame, "Under construction", "Not available", JOptionPane.INFORMATION_MESSAGE);
+		} else if (source.equals(menuItemAboutTheSoftware)) {
+			JOptionPane.showMessageDialog(mainFrame,  "This software help you test your trained cascades and see them in action","OpenCV cascade Tester", JOptionPane.INFORMATION_MESSAGE);
 		}
 
 	}
